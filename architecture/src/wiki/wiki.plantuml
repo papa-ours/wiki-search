@@ -1,0 +1,22 @@
+@startuml
+
+abstract AbstractArticle {}
+
+class Article {}
+class Collection {}
+class Category {}
+
+class Search {}
+
+AbstractArticle <|-- Article
+AbstractArticle <|-- Collection
+
+Collection o--> AbstractArticle
+
+Article <-- Search
+
+Collection <|-- Category
+
+hide members
+
+@enduml
