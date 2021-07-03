@@ -3,7 +3,7 @@ from .abstract_article import AbstractArticle
 from collections.abc import Iterable
 from typing import List, Union
 
-class Collection(AbstractArticle):
+class Collection(AbstractArticle, Iterable):
     @staticmethod
     def flatten(elements):
         for element in elements:
@@ -11,9 +11,16 @@ class Collection(AbstractArticle):
                 yield from Collection.flatten(element)
             else:
                 yield element
-    
+                
     def __init__(self, articles: List[AbstractArticle] = []):
         self.__articles = articles
+        
+    def __iter__(self):
+        for article in self.__articles:
+            if isinstance(article, Iterable):
+                yield from article.__iter__()
+            else:
+                yield article
     
     def add(self, to_add: Union[AbstractArticle, List[AbstractArticle]]):
         if isinstance(to_add, Iterable):

@@ -5,9 +5,15 @@ import requests
 import re
 
 class Article(AbstractArticle):
-    def __init__(self, title):
+    def __init__(self, title, content = None):
         self.title = title
-        self.content = self.__get_content()
+        self.content = self.__get_content() if content is None else content
+        
+    def __repr__(self):
+        return 'Wiki Article:' + self.title
+    
+    def __str__(self):
+        return self.title
 
     def get_title(self):
         return self.title
